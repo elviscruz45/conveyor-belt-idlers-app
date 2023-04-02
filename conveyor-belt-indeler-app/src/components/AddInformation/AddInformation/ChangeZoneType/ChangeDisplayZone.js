@@ -4,12 +4,12 @@ import { Input, Button } from "@rneui/themed";
 import { useFormik } from "formik";
 // import { getAuth, updateProfile } from "firebase/auth";
 // import Toast from "react-native-toast-message";
-import { initialValues, validationSchema } from "./ChangeDisplayBelt.data";
-import { styles } from "./ChangeDisplayBelt.styles";
+import { initialValues, validationSchema } from "./ChangeDisplayZone.data";
+import { styles } from "./ChangeDisplayZone.styles";
 import { Pickermode } from "./Pickermode";
 
-export function ChangeDisplayBelt(props) {
-  const { onClose, handlerenderComponent } = props;
+export function ChangeDisplayZone(props) {
+  const { onClose, handlerenderComponentZone } = props;
   const formik = useFormik({
     initialValues: initialValues(),
     // validationSchema: validationSchema(),
@@ -17,9 +17,7 @@ export function ChangeDisplayBelt(props) {
     onSubmit: (formValue) => {
       console.log(formValue);
       onClose();
-      handlerenderComponent(
-        `${formValue.Plant}${"-CV-0"}${formValue.Number1}${formValue.Number2}`
-      );
+      handlerenderComponentZone(`${formValue.Zone}`);
       // try {
       //   const { displayName } = formValue;
       //   const currentUser = getAuth().currentUser;

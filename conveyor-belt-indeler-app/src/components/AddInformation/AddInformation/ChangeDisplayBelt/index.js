@@ -1,2 +1,2 @@
 export * from "./ChangeDisplayBelt";
-export * from "./Pickermode.js";
+export * from "./Pickermode";

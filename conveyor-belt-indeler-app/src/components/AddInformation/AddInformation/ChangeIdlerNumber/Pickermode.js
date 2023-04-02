@@ -7,9 +7,8 @@ import { styles } from "./Pickermode.styles";
 export function Pickermode(props) {
   const { formik } = props;
   const pickerRef = useRef();
-  const [selectedPlant, setselectedPlant] = useState("C1");
   const [selectedNumber1, setSelectedNumber1] = useState("0");
-  const [selectedNumber2, setSelectedNumber2] = useState("13");
+  const [selectedNumber2, setSelectedNumber2] = useState("20");
 
   function open() {
     pickerRef.current.focus();
@@ -19,10 +18,6 @@ export function Pickermode(props) {
     pickerRef.current.blur();
   }
 
-  function saveBeltproperty(itemValue) {
-    setselectedPlant(itemValue);
-    formik.setFieldValue("Plant", itemValue);
-  }
   function saveNumber1property(itemValue) {
     setSelectedNumber1(itemValue);
     formik.setFieldValue("Number1", itemValue);
@@ -34,22 +29,11 @@ export function Pickermode(props) {
   return (
     <>
       <Text style={styles.text}>
-        {"Tag: "}
-        {selectedPlant}
-        {"-CV-"}
+        {"Numero de Polin: "}
         {selectedNumber1}
         {selectedNumber2}
       </Text>
       <View style={styles.content}>
-        <Picker
-          ref={pickerRef}
-          selectedValue={selectedPlant}
-          onValueChange={(itemValue, itemIndex) => saveBeltproperty(itemValue)}
-        >
-          <Picker.Item label="C1" value="C1" />
-          <Picker.Item label="C2" value="C2" />
-        </Picker>
-
         <Picker
           selectedValue={selectedNumber1}
           onValueChange={(itemValue, itemIndex) =>

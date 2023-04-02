@@ -4,12 +4,12 @@ import { Input, Button } from "@rneui/themed";
 import { useFormik } from "formik";
 // import { getAuth, updateProfile } from "firebase/auth";
 // import Toast from "react-native-toast-message";
-import { initialValues, validationSchema } from "./ChangeDisplayBelt.data";
-import { styles } from "./ChangeDisplayBelt.styles";
+import { initialValues, validationSchema } from "./ChangeDisplayPosition.data";
+import { styles } from "./ChangeDisplayPosition.styles";
 import { Pickermode } from "./Pickermode";
 
-export function ChangeDisplayBelt(props) {
-  const { onClose, handlerenderComponent } = props;
+export function ChangeDisplayPosition(props) {
+  const { onClose, handlerenderComponentPosition } = props;
   const formik = useFormik({
     initialValues: initialValues(),
     // validationSchema: validationSchema(),
@@ -17,9 +17,7 @@ export function ChangeDisplayBelt(props) {
     onSubmit: (formValue) => {
       console.log(formValue);
       onClose();
-      handlerenderComponent(
-        `${formValue.Plant}${"-CV-0"}${formValue.Number1}${formValue.Number2}`
-      );
+      handlerenderComponentPosition(`${formValue.Position}`);
       // try {
       //   const { displayName } = formValue;
       //   const currentUser = getAuth().currentUser;
@@ -40,16 +38,6 @@ export function ChangeDisplayBelt(props) {
     <View>
       <View style={styles.content}>
         <Pickermode formik={formik} />
-        {/* <Input
-          placeholder="Faja"
-          rightIcon={{
-            type: "material-community",
-            name: "chevron-right",
-            color: "#c2c2c2",
-          }}
-          onChangeText={(text) => formik.setFieldValue("Belt", text)}
-          errorMessage={formik.errors.Belt}
-        /> */}
         <Button
           title="Aceptar"
           containerStyle={styles.btnContainer}
