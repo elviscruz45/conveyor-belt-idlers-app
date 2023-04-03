@@ -5,7 +5,7 @@ import { Picker } from "@react-native-picker/picker";
 import { styles } from "./Pickermode.styles";
 
 export function Pickermode(props) {
-  const { formik } = props;
+  const { formik2 } = props;
   const pickerRef = useRef();
   const [selected, setSelected] = useState("Partido");
 
@@ -19,7 +19,7 @@ export function Pickermode(props) {
 
   function saveProperty(itemValue) {
     setSelected(itemValue);
-    formik.setFieldValue("Condition", itemValue);
+    formik2.setFieldValue("Condition", itemValue);
   }
 
   return (

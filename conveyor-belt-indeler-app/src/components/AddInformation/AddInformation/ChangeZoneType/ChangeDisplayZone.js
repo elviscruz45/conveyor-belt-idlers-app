@@ -9,15 +9,17 @@ import { styles } from "./ChangeDisplayZone.styles";
 import { Pickermode } from "./Pickermode";
 
 export function ChangeDisplayZone(props) {
-  const { onClose, handlerenderComponentZone } = props;
-  const formik = useFormik({
+  const { onClose, handlerenderComponentZone, formik } = props;
+  const formik2 = useFormik({
     initialValues: initialValues(),
     // validationSchema: validationSchema(),
     validateOnChange: false,
     onSubmit: (formValue) => {
-      console.log(formValue);
       onClose();
-      handlerenderComponentZone(`${formValue.Zone}`);
+      const zona = `${formValue.Zone}`;
+      formik.setFieldValue("zona", zona);
+
+      handlerenderComponentZone(zona);
       // try {
       //   const { displayName } = formValue;
       //   const currentUser = getAuth().currentUser;
@@ -37,7 +39,7 @@ export function ChangeDisplayZone(props) {
   return (
     <View>
       <View style={styles.content}>
-        <Pickermode formik={formik} />
+        <Pickermode formik2={formik2} />
         {/* <Input
           placeholder="Faja"
           rightIcon={{
@@ -52,7 +54,7 @@ export function ChangeDisplayZone(props) {
           title="Aceptar"
           containerStyle={styles.btnContainer}
           buttonStyle={styles.btn}
-          onPress={formik.handleSubmit}
+          onPress={formik2.handleSubmit}
           // loading={formik.isSubmitting}
         />
       </View>

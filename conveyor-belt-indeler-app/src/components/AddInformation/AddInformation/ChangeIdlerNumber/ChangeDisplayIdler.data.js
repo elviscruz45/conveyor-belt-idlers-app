@@ -2,7 +2,7 @@ import * as Yup from "yup";
 
 export function initialValues() {
   return {
-    Number1: "01",
+    Number1: "",
     Number2: "20",
   };
 }

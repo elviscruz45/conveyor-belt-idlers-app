@@ -9,15 +9,17 @@ import { styles } from "./ChangeDisplayCondition.styles";
 import { Pickermode } from "./Pickermode";
 
 export function ChangeDisplayCondition(props) {
-  const { onClose, handlerenderComponentCondition } = props;
-  const formik = useFormik({
+  const { onClose, handlerenderComponentCondition, formik } = props;
+  const formik2 = useFormik({
     initialValues: initialValues(),
     // validationSchema: validationSchema(),
     validateOnChange: false,
     onSubmit: (formValue) => {
-      console.log(formValue);
       onClose();
-      handlerenderComponentCondition(`${formValue.Condition}`);
+      const condicion = `${formValue.Condition}`;
+      handlerenderComponentCondition(condicion);
+      formik.setFieldValue("condicion", condicion);
+
       // try {
       //   const { displayName } = formValue;
       //   const currentUser = getAuth().currentUser;
@@ -37,12 +39,12 @@ export function ChangeDisplayCondition(props) {
   return (
     <View>
       <View style={styles.content}>
-        <Pickermode formik={formik} />
+        <Pickermode formik2={formik2} />
         <Button
           title="Aceptar"
           containerStyle={styles.btnContainer}
           buttonStyle={styles.btn}
-          onPress={formik.handleSubmit}
+          onPress={formik2.handleSubmit}
           // loading={formik.isSubmitting}
         />
       </View>

@@ -5,9 +5,9 @@ import { Picker } from "@react-native-picker/picker";
 import { styles } from "./Pickermode.styles";
 
 export function Pickermode(props) {
-  const { formik } = props;
+  const { formik2 } = props;
   const pickerRef = useRef();
-  const [selectedNumber1, setSelectedNumber1] = useState("0");
+  const [selectedNumber1, setSelectedNumber1] = useState("");
   const [selectedNumber2, setSelectedNumber2] = useState("20");
 
   function open() {
@@ -20,11 +20,11 @@ export function Pickermode(props) {
 
   function saveNumber1property(itemValue) {
     setSelectedNumber1(itemValue);
-    formik.setFieldValue("Number1", itemValue);
+    formik2.setFieldValue("Number1", itemValue);
   }
   function saveNumber2property(itemValue) {
     setSelectedNumber2(itemValue);
-    formik.setFieldValue("Number2", itemValue);
+    formik2.setFieldValue("Number2", itemValue);
   }
   return (
     <>

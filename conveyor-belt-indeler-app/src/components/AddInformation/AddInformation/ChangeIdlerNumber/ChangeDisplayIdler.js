@@ -9,15 +9,17 @@ import { styles } from "./ChangeDisplayIdler.styles";
 import { Pickermode } from "./Pickermode";
 
 export function ChangeDisplayIdler(props) {
-  const { onClose, handlerenderComponentIdler } = props;
-  const formik = useFormik({
+  const { onClose, handlerenderComponentIdler, formik } = props;
+  const formik2 = useFormik({
     initialValues: initialValues(),
     // validationSchema: validationSchema(),
     validateOnChange: false,
     onSubmit: (formValue) => {
-      console.log(formValue);
       onClose();
-      handlerenderComponentIdler(`${formValue.Number1}${formValue.Number2}`);
+      const numeroPolin = `${formValue.Number1}${formValue.Number2}`;
+      handlerenderComponentIdler(numeroPolin);
+      formik.setFieldValue("numeroPolin", numeroPolin);
+
       // try {
       //   const { displayName } = formValue;
       //   const currentUser = getAuth().currentUser;
@@ -37,22 +39,12 @@ export function ChangeDisplayIdler(props) {
   return (
     <View>
       <View style={styles.content}>
-        <Pickermode formik={formik} />
-        {/* <Input
-          placeholder="Faja"
-          rightIcon={{
-            type: "material-community",
-            name: "chevron-right",
-            color: "#c2c2c2",
-          }}
-          onChangeText={(text) => formik.setFieldValue("Belt", text)}
-          errorMessage={formik.errors.Belt}
-        /> */}
+        <Pickermode formik2={formik2} />
         <Button
           title="Aceptar"
           containerStyle={styles.btnContainer}
           buttonStyle={styles.btn}
-          onPress={formik.handleSubmit}
+          onPress={formik2.handleSubmit}
           // loading={formik.isSubmitting}
         />
       </View>

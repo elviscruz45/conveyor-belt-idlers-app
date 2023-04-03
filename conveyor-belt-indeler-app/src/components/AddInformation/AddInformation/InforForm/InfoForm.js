@@ -1,7 +1,8 @@
 import { View, Text } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Input } from "@rneui/themed";
 import { styles } from "./InforForm.styles";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal } from "../../../shared/Modal";
 import { ChangeDisplayBelt } from "../ChangeDisplayBelt";
 import { ChangeDisplayZone } from "../ChangeZoneType";
@@ -12,7 +13,7 @@ import { ChangeDisplayPriority } from "../ChangePriority";
 
 import { initialValues } from "../ChangeDisplayBelt/ChangeDisplayBelt.data";
 export function InfoForm(props) {
-  const { formik } = props;
+  const { formik, CopyBeltNumber } = props;
   const [showModal, setShowModal] = useState(false);
   const [renderComponent, setRenderComponent] = useState(null);
   const [defaultValueFaja, setDefaultValueFaja] = useState("");
@@ -21,6 +22,12 @@ export function InfoForm(props) {
   const [defaultValuePosition, setDefaultValuePosition] = useState("");
   const [defaultValueCondition, setDefaultValueCondition] = useState("");
   const [defaultValuePriority, setDefaultValuePriority] = useState("");
+
+  useEffect(() => {
+    formik.setFieldValue("numeroFaja", CopyBeltNumber.numeroFaja);
+    formik.setFieldValue("zona", CopyBeltNumber.zona);
+    formik.setFieldValue("numeroPolin", CopyBeltNumber.numeroPolin);
+  }, []);
 
   function handlerenderComponent(value) {
     setDefaultValueFaja(value);
@@ -48,6 +55,8 @@ export function InfoForm(props) {
         <ChangeDisplayBelt
           onClose={onCloseOpenModal}
           handlerenderComponent={handlerenderComponent}
+          formik={formik}
+          CopyBeltNumber={CopyBeltNumber}
         />
       );
     }
@@ -56,6 +65,8 @@ export function InfoForm(props) {
         <ChangeDisplayZone
           onClose={onCloseOpenModal}
           handlerenderComponentZone={handlerenderComponentZone}
+          formik={formik}
+          CopyBeltNumber={CopyBeltNumber}
         />
       );
     }
@@ -64,6 +75,8 @@ export function InfoForm(props) {
         <ChangeDisplayIdler
           onClose={onCloseOpenModal}
           handlerenderComponentIdler={handlerenderComponentIdler}
+          formik={formik}
+          CopyBeltNumber={CopyBeltNumber}
         />
       );
     }
@@ -72,6 +85,7 @@ export function InfoForm(props) {
         <ChangeDisplayPosition
           onClose={onCloseOpenModal}
           handlerenderComponentPosition={handlerenderComponentPosition}
+          formik={formik}
         />
       );
     }
@@ -80,6 +94,7 @@ export function InfoForm(props) {
         <ChangeDisplayCondition
           onClose={onCloseOpenModal}
           handlerenderComponentCondition={handlerenderComponentCondition}
+          formik={formik}
         />
       );
     }
@@ -88,6 +103,7 @@ export function InfoForm(props) {
         <ChangeDisplayPriority
           onClose={onCloseOpenModal}
           handlerenderComponentPriority={handlerenderComponentPriority}
+          formik={formik}
         />
       );
     }
@@ -95,28 +111,38 @@ export function InfoForm(props) {
   };
 
   return (
-    <>
+    <KeyboardAwareScrollView>
       <Text></Text>
       <View style={styles.content}>
         <Input
+          // value={defaultValueFaja || BeltTag}
           placeholder="Numero de Faja"
-          defaultValue={defaultValueFaja}
+          defaultValue={defaultValueFaja || CopyBeltNumber.numeroFaja}
           editable={false}
-          onChangeText={(text) => formik.setFieldValue("numeroFaja", text)}
+          onChangeText={() =>
+            formik.setFieldValue(
+              "numeroFaja",
+              defaultValueFaja || CopyBeltNumber.numeroFaja
+            )
+          }
           errorMessage={formik.errors.numeroFaja}
           rightIcon={{
             type: "material-community",
             name: "tag-multiple-outline",
             // color: getColorIconMap(formik),
             onPress: () => selectComponent("numeroFaja"),
-            // onPress: () => console.log("HOla"),
           }}
         />
         <Input
           placeholder="Zona/Tipo"
-          defaultValue={defaultValueZone}
+          defaultValue={defaultValueZone || CopyBeltNumber.zona}
           editable={false}
-          onChangeText={(text) => formik.setFieldValue("zona", text)}
+          onChangeText={() =>
+            formik.setFieldValue(
+              "zona",
+              defaultValueZone || CopyBeltNumber.zona
+            )
+          }
           errorMessage={formik.errors.zona}
           rightIcon={{
             type: "material-community",
@@ -127,9 +153,14 @@ export function InfoForm(props) {
         />
         <Input
           placeholder="Numero Polin"
-          defaultValue={defaultValueIdler}
+          defaultValue={defaultValueIdler || CopyBeltNumber.numeroPolin}
           editable={false}
-          onChangeText={(text) => formik.setFieldValue("numeroPolin", text)}
+          onChangeText={() =>
+            formik.setFieldValue(
+              "numeroPolin",
+              defaultValueIdler || CopyBeltNumber.numeroPolin
+            )
+          }
           errorMessage={formik.errors.numeroPolin}
           rightIcon={{
             type: "material-community",
@@ -142,7 +173,9 @@ export function InfoForm(props) {
           placeholder="Posicion"
           defaultValue={defaultValuePosition}
           editable={false}
-          onChangeText={(text) => formik.setFieldValue("posicion", text)}
+          onChangeText={() =>
+            formik.setFieldValue("posicion", defaultValuePosition)
+          }
           errorMessage={formik.errors.posicion}
           rightIcon={{
             type: "material-community",
@@ -155,7 +188,9 @@ export function InfoForm(props) {
           placeholder="Condicion"
           defaultValue={defaultValueCondition}
           editable={false}
-          onChangeText={(text) => formik.setFieldValue("condicion", text)}
+          onChangeText={() =>
+            formik.setFieldValue("condicion", defaultValueCondition)
+          }
           errorMessage={formik.errors.condicion}
           rightIcon={{
             type: "material-community",
@@ -168,7 +203,9 @@ export function InfoForm(props) {
           placeholder="Prioridad"
           defaultValue={defaultValuePriority}
           editable={false}
-          onChangeText={(text) => formik.setFieldValue("prioridad", text)}
+          onChangeText={() =>
+            formik.setFieldValue("prioridad", defaultValuePriority)
+          }
           errorMessage={formik.errors.prioridad}
           rightIcon={{
             type: "material-community",
@@ -183,18 +220,11 @@ export function InfoForm(props) {
           inputContainerStyle={styles.textArea}
           onChangeText={(text) => formik.setFieldValue("observacion", text)}
           errorMessage={formik.errors.observacion}
-          // rightIcon={{
-          //   type: "material-community",
-          //   name: "text-box-outline",
-          //   // color: getColorIconMap(formik),
-          //   onPress: () => selectComponent("observacion"),
-          // }}
         />
-        {/* <Text> {renderComponent}</Text> */}
       </View>
       <Modal show={showModal} close={onCloseOpenModal}>
         {renderComponent}
       </Modal>
-    </>
+    </KeyboardAwareScrollView>
   );
 }

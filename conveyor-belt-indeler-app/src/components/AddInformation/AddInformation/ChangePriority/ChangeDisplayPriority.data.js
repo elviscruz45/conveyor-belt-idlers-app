@@ -2,7 +2,7 @@ import * as Yup from "yup";
 
 export function initialValues() {
   return {
-    Priority: "1",
+    Priority: "3_Normal",
   };
 }
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View } from "react-native";
 import { Input, Button } from "@rneui/themed";
 import { useFormik } from "formik";
@@ -9,17 +9,19 @@ import { styles } from "./ChangeDisplayBelt.styles";
 import { Pickermode } from "./Pickermode";
 
 export function ChangeDisplayBelt(props) {
-  const { onClose, handlerenderComponent } = props;
-  const formik = useFormik({
+  const { onClose, handlerenderComponent, formik } = props;
+  const formik2 = useFormik({
     initialValues: initialValues(),
     // validationSchema: validationSchema(),
     validateOnChange: false,
     onSubmit: (formValue) => {
-      console.log(formValue);
+      const numeroFaja = `${formValue.Plant}${"-CV-"}${formValue.Number1}${
+        formValue.Number2
+      }`;
+      formik.setFieldValue("numeroFaja", numeroFaja);
+
       onClose();
-      handlerenderComponent(
-        `${formValue.Plant}${"-CV-0"}${formValue.Number1}${formValue.Number2}`
-      );
+      handlerenderComponent(numeroFaja);
       // try {
       //   const { displayName } = formValue;
       //   const currentUser = getAuth().currentUser;
@@ -39,22 +41,12 @@ export function ChangeDisplayBelt(props) {
   return (
     <View>
       <View style={styles.content}>
-        <Pickermode formik={formik} />
-        {/* <Input
-          placeholder="Faja"
-          rightIcon={{
-            type: "material-community",
-            name: "chevron-right",
-            color: "#c2c2c2",
-          }}
-          onChangeText={(text) => formik.setFieldValue("Belt", text)}
-          errorMessage={formik.errors.Belt}
-        /> */}
+        <Pickermode formik2={formik2} />
         <Button
-          title="Aceptar"
+          title="Aceptarr"
           containerStyle={styles.btnContainer}
           buttonStyle={styles.btn}
-          onPress={formik.handleSubmit}
+          onPress={formik2.handleSubmit}
           // loading={formik.isSubmitting}
         />
       </View>

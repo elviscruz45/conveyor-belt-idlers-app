@@ -9,15 +9,17 @@ import { styles } from "./ChangeDisplayPosition.styles";
 import { Pickermode } from "./Pickermode";
 
 export function ChangeDisplayPosition(props) {
-  const { onClose, handlerenderComponentPosition } = props;
-  const formik = useFormik({
+  const { onClose, handlerenderComponentPosition, formik } = props;
+  const formik2 = useFormik({
     initialValues: initialValues(),
     // validationSchema: validationSchema(),
     validateOnChange: false,
     onSubmit: (formValue) => {
-      console.log(formValue);
       onClose();
-      handlerenderComponentPosition(`${formValue.Position}`);
+      const posicion = `${formValue.Position}`;
+      handlerenderComponentPosition(posicion);
+      formik.setFieldValue("posicion", posicion);
+
       // try {
       //   const { displayName } = formValue;
       //   const currentUser = getAuth().currentUser;
@@ -37,12 +39,12 @@ export function ChangeDisplayPosition(props) {
   return (
     <View>
       <View style={styles.content}>
-        <Pickermode formik={formik} />
+        <Pickermode formik2={formik2} />
         <Button
           title="Aceptar"
           containerStyle={styles.btnContainer}
           buttonStyle={styles.btn}
-          onPress={formik.handleSubmit}
+          onPress={formik2.handleSubmit}
           // loading={formik.isSubmitting}
         />
       </View>
