@@ -10,6 +10,8 @@ export function InformationScreen(props) {
   const [dataList, setDataList] = useState([]);
   const { navigation, route } = props;
   const [data, setData] = useState();
+  console.log(route);
+
   useEffect(() => {
     if (route.params) {
       setData(route.params.formData);
@@ -18,7 +20,13 @@ export function InformationScreen(props) {
 
   useEffect(() => {
     if (data) {
-      setDataList((prevDataList) => [...prevDataList, data]);
+      if (route.params.Index || route.params.Index === 0) {
+        const newDataList = [...dataList];
+        newDataList.splice(route.params.Index, 0, data);
+        setDataList(newDataList);
+      } else {
+        setDataList((prevDataList) => [...prevDataList, data]);
+      }
     }
   }, [data]);
 
@@ -28,12 +36,12 @@ export function InformationScreen(props) {
     });
   };
 
-  const goToEdit = (item) => {
+  const goToEdit = (item, index) => {
     console.log("Edit");
     navigation.navigate(screen.addinformation.addInformation, {
-      EditData: item,
+      EditData: { ...item, Index: index },
     });
-    const result = filter(dataList, (data) => data !== item);
+    const result = filter(dataList, (data, index) => data !== item);
     setDataList(result);
   };
   const goToDelete = (item) => {
@@ -55,7 +63,6 @@ export function InformationScreen(props) {
       ],
       { cancelable: false }
     );
-
     console.log("Delete");
   };
   return (
@@ -63,9 +70,11 @@ export function InformationScreen(props) {
       {dataList && (
         <FlatList
           data={dataList}
-          renderItem={({ item }) => {
+          renderItem={({ item, index }) => {
             return (
               <View>
+                <Text>{index + 1}</Text>
+
                 <View style={styles.btnEditDelete}>
                   <Text>Fecha: {item.createdAt}</Text>
                   <Icon
@@ -74,7 +83,7 @@ export function InformationScreen(props) {
                     name="pencil-outline"
                     // color="#FA4A0C"
                     // containerStyle={styles.btnContainer1}
-                    onPress={() => goToEdit(item)}
+                    onPress={() => goToEdit(item, index)}
                   />
                   <Icon
                     // reverse
@@ -97,7 +106,6 @@ export function InformationScreen(props) {
                 <Text>
                   ----------------------------------------------------
                 </Text>
-                <Text> </Text>
               </View>
             );
           }}

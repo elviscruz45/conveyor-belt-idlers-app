@@ -24,6 +24,7 @@ export function AddInformationScreen(props) {
         setFormData(newData);
         navigation.navigate(screen.addinformation.Information, {
           formData: newData,
+          Index: route.params.EditData?.Index,
         });
       } catch (error) {
         alert(error);
