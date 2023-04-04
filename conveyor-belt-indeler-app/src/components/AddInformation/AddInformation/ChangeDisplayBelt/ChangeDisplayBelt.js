@@ -43,7 +43,7 @@ export function ChangeDisplayBelt(props) {
       <View style={styles.content}>
         <Pickermode formik2={formik2} />
         <Button
-          title="Aceptarr"
+          title="Aceptar"
           containerStyle={styles.btnContainer}
           buttonStyle={styles.btn}
           onPress={formik2.handleSubmit}

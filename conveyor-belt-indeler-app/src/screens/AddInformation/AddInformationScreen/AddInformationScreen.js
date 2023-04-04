@@ -33,7 +33,11 @@ export function AddInformationScreen(props) {
 
   return (
     <View>
-      <InfoForm formik={formik} CopyBeltNumber={route.params.CopyBeltNumber} />
+      <InfoForm
+        formik={formik}
+        CopyBeltNumber={route.params.CopyBeltNumber}
+        EditData={route.params.EditData}
+      />
       <Button
         title="Agregar Dato"
         buttonStyle={styles.addInformation}

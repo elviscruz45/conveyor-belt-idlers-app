@@ -13,7 +13,7 @@ import { ChangeDisplayPriority } from "../ChangePriority";
 
 import { initialValues } from "../ChangeDisplayBelt/ChangeDisplayBelt.data";
 export function InfoForm(props) {
-  const { formik, CopyBeltNumber } = props;
+  const { formik, CopyBeltNumber, EditData } = props;
   const [showModal, setShowModal] = useState(false);
   const [renderComponent, setRenderComponent] = useState(null);
   const [defaultValueFaja, setDefaultValueFaja] = useState("");
@@ -22,11 +22,34 @@ export function InfoForm(props) {
   const [defaultValuePosition, setDefaultValuePosition] = useState("");
   const [defaultValueCondition, setDefaultValueCondition] = useState("");
   const [defaultValuePriority, setDefaultValuePriority] = useState("");
+  const [defaultValueObservation, setDefaultValueObservation] = useState("");
 
   useEffect(() => {
-    formik.setFieldValue("numeroFaja", CopyBeltNumber.numeroFaja);
-    formik.setFieldValue("zona", CopyBeltNumber.zona);
-    formik.setFieldValue("numeroPolin", CopyBeltNumber.numeroPolin);
+    if (CopyBeltNumber) {
+      formik.setFieldValue("numeroFaja", CopyBeltNumber.numeroFaja);
+      formik.setFieldValue("zona", CopyBeltNumber.zona);
+      formik.setFieldValue("numeroPolin", CopyBeltNumber.numeroPolin);
+      setDefaultValueFaja(CopyBeltNumber.numeroFaja);
+      setDefaultValueZone(CopyBeltNumber.zona);
+      setDefaultValueIdler(CopyBeltNumber.numeroPolin);
+    }
+    if (EditData) {
+      formik.setFieldValue("numeroFaja", EditData.numeroFaja);
+      formik.setFieldValue("zona", EditData.zona);
+      formik.setFieldValue("numeroPolin", EditData.numeroPolin);
+      formik.setFieldValue("posicion", EditData.posicion);
+      formik.setFieldValue("condicion", EditData.condicion);
+      formik.setFieldValue("prioridad", EditData.prioridad);
+      formik.setFieldValue("observacion", EditData.observacion);
+
+      setDefaultValueFaja(EditData.numeroFaja);
+      setDefaultValueZone(EditData.zona);
+      setDefaultValueIdler(EditData.numeroPolin);
+      setDefaultValuePosition(EditData.posicion);
+      setDefaultValueCondition(EditData.condicion);
+      setDefaultValuePriority(EditData.prioridad);
+      setDefaultValueObservation(EditData.observacion);
+    }
   }, []);
 
   function handlerenderComponent(value) {
@@ -115,9 +138,8 @@ export function InfoForm(props) {
       <Text></Text>
       <View style={styles.content}>
         <Input
-          // value={defaultValueFaja || BeltTag}
           placeholder="Numero de Faja"
-          defaultValue={defaultValueFaja || CopyBeltNumber.numeroFaja}
+          defaultValue={defaultValueFaja}
           editable={false}
           onChangeText={() =>
             formik.setFieldValue(
@@ -135,7 +157,7 @@ export function InfoForm(props) {
         />
         <Input
           placeholder="Zona/Tipo"
-          defaultValue={defaultValueZone || CopyBeltNumber.zona}
+          defaultValue={defaultValueZone}
           editable={false}
           onChangeText={() =>
             formik.setFieldValue(
@@ -153,7 +175,7 @@ export function InfoForm(props) {
         />
         <Input
           placeholder="Numero Polin"
-          defaultValue={defaultValueIdler || CopyBeltNumber.numeroPolin}
+          defaultValue={defaultValueIdler}
           editable={false}
           onChangeText={() =>
             formik.setFieldValue(
@@ -216,6 +238,7 @@ export function InfoForm(props) {
         />
         <Input
           placeholder="Colocar Observaciones"
+          defaultValue={defaultValueObservation}
           multiline={true}
           inputContainerStyle={styles.textArea}
           onChangeText={(text) => formik.setFieldValue("observacion", text)}
