@@ -5,12 +5,22 @@ import { styles } from "./InformationScreen.styles";
 import { screen } from "../../../utils";
 import { ListData } from "../../../components/AddInformation/ListInformation";
 import { map, filter } from "lodash";
+import { doc, setDoc } from "firebase/firestore";
+import { v4 as uuid } from "uuid";
+import { db } from "../../../utils";
 
 export function InformationScreen(props) {
   const [dataList, setDataList] = useState([]);
   const { navigation, route } = props;
   const [data, setData] = useState();
-  console.log(route);
+  const dataID = data?.numeroFaja + data?.numeroPolin + data?.posicion || "";
+  const lastListData = dataList.slice(-1)[0];
+  const lastListDataID =
+    lastListData?.numeroFaja +
+      lastListData?.numeroPolin +
+      lastListData?.posicion || "";
+  console.log("last Item", data);
+  console.log("dataList", dataList);
 
   useEffect(() => {
     if (route.params) {
@@ -20,7 +30,10 @@ export function InformationScreen(props) {
 
   useEffect(() => {
     if (data) {
-      if (route.params.Index || route.params.Index === 0) {
+      if (dataID === lastListDataID) {
+        alert("No se guardo, el polin ya esta registrado anteriormente");
+        return;
+      } else if (route.params.Index || route.params.Index === 0) {
         const newDataList = [...dataList];
         newDataList.splice(route.params.Index, 0, data);
         setDataList(newDataList);
@@ -65,6 +78,20 @@ export function InformationScreen(props) {
     );
     console.log("Delete");
   };
+
+  const sendToFirebase = async (dataList) => {
+    try {
+      const newData = { dataList: dataList };
+      newData.id = uuid();
+      newData.createdAt = new Date();
+      await setDoc(doc(db, "Polines-Data", newData.id), newData);
+      alert("Se han enviado los datos correctamente a la nube");
+      // navigation.goBack();
+    } catch (error) {
+      alert(error);
+    }
+  };
+
   return (
     <>
       {dataList && (
@@ -74,7 +101,6 @@ export function InformationScreen(props) {
             return (
               <View>
                 <Text>{index + 1}</Text>
-
                 <View style={styles.btnEditDelete}>
                   <Text>Fecha: {item.createdAt}</Text>
                   <Icon
@@ -102,7 +128,6 @@ export function InformationScreen(props) {
                 <Text>Condicion: {item.condicion}</Text>
                 <Text>Prioridad: {item.prioridad}</Text>
                 <Text>Observacion: {item.observacion}</Text>
-
                 <Text>
                   ----------------------------------------------------
                 </Text>
@@ -118,7 +143,7 @@ export function InformationScreen(props) {
           name="send-circle-outline"
           color="#FA4A0C"
           containerStyle={styles.btnContainer1}
-          onPress={goToInformation}
+          onPress={() => sendToFirebase(dataList)}
         />
         <Icon
           reverse

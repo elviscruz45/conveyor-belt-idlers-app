@@ -7,6 +7,7 @@ import { useFormik } from "formik";
 import { initialValues, validationSchema } from "./AddInformationScreen.data";
 import { useNavigation } from "@react-navigation/native";
 import { screen } from "../../../utils";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 export function AddInformationScreen(props) {
   const { route } = props;
@@ -33,18 +34,20 @@ export function AddInformationScreen(props) {
   });
 
   return (
-    <View>
-      <InfoForm
-        formik={formik}
-        CopyBeltNumber={route.params.CopyBeltNumber}
-        EditData={route.params.EditData}
-      />
-      <Button
-        title="Agregar Dato"
-        buttonStyle={styles.addInformation}
-        onPress={formik.handleSubmit}
-        // loading={formik.isSubmitting}
-      />
-    </View>
+    <KeyboardAwareScrollView>
+      <View>
+        <InfoForm
+          formik={formik}
+          CopyBeltNumber={route.params.CopyBeltNumber}
+          EditData={route.params.EditData}
+        />
+        <Button
+          title="Agregar Dato"
+          buttonStyle={styles.addInformation}
+          onPress={formik.handleSubmit}
+          // loading={formik.isSubmitting}
+        />
+      </View>
+    </KeyboardAwareScrollView>
   );
 }

@@ -10,8 +10,8 @@ import { ChangeDisplayIdler } from "../ChangeIdlerNumber";
 import { ChangeDisplayPosition } from "../ChangePosition";
 import { ChangeDisplayCondition } from "../ChangeCondition";
 import { ChangeDisplayPriority } from "../ChangePriority";
-
 import { initialValues } from "../ChangeDisplayBelt/ChangeDisplayBelt.data";
+
 export function InfoForm(props) {
   const { formik, CopyBeltNumber, EditData } = props;
   const [showModal, setShowModal] = useState(false);
@@ -134,7 +134,7 @@ export function InfoForm(props) {
   };
 
   return (
-    <KeyboardAwareScrollView>
+    <View>
       <Text></Text>
       <View style={styles.content}>
         <Input
@@ -225,6 +225,7 @@ export function InfoForm(props) {
           placeholder="Prioridad"
           defaultValue={defaultValuePriority}
           editable={false}
+          // keyboardType="numeric"
           onChangeText={() =>
             formik.setFieldValue("prioridad", defaultValuePriority)
           }
@@ -239,6 +240,7 @@ export function InfoForm(props) {
         <Input
           placeholder="Colocar Observaciones"
           defaultValue={defaultValueObservation}
+          // keyboardType="numeric"
           multiline={true}
           inputContainerStyle={styles.textArea}
           onChangeText={(text) => formik.setFieldValue("observacion", text)}
@@ -248,6 +250,6 @@ export function InfoForm(props) {
       <Modal show={showModal} close={onCloseOpenModal}>
         {renderComponent}
       </Modal>
-    </KeyboardAwareScrollView>
+    </View>
   );
 }
