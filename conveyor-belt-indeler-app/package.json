@@ -19,6 +19,7 @@
     "expo": "~48.0.9",
     "expo-image-picker": "~14.1.1",
     "expo-status-bar": "~1.4.4",
+    "expo-updates": "~0.16.4",
     "firebase": "^9.19.1",
     "formik": "^2.2.9",
     "lodash": "^4.17.21",

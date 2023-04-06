@@ -5,11 +5,11 @@ import { Picker } from "@react-native-picker/picker";
 import { styles } from "./Pickermode.styles";
 
 export function Pickermode(props) {
-  const { formik2 } = props;
+  const { formik2, formik } = props;
   const pickerRef = useRef();
   const [selectedPlant, setselectedPlant] = useState("C1");
-  const [selectedNumber1, setSelectedNumber1] = useState("0");
-  const [selectedNumber2, setSelectedNumber2] = useState("13");
+  const [selectedNumber1, setSelectedNumber1] = useState("-CV-");
+  const [selectedNumber2, setSelectedNumber2] = useState("00");
 
   function open() {
     pickerRef.current.focus();
@@ -36,7 +36,6 @@ export function Pickermode(props) {
       <Text style={styles.text}>
         {"Tag: "}
         {selectedPlant}
-        {"-CV-"}
         {selectedNumber1}
         {selectedNumber2}
       </Text>
@@ -56,16 +55,19 @@ export function Pickermode(props) {
             saveNumber1property(itemValue)
           }
         >
-          {Array.from(Array(100).keys()).map((number) => (
-            <Picker.Item
-              key={number}
-              label={String(number)}
-              value={String(number)}
-            />
-          ))}
+          <Picker.Item label="-CV-" value="-CV-" />
+          <Picker.Item label="-FE-" value="-FE-" />
         </Picker>
-
-        <Picker
+        <Input
+          placeholder="Coloque el numero de Faja"
+          // editable={true}
+          keyboardType="numeric"
+          onChangeText={(itemValue, itemIndex) =>
+            saveNumber2property(itemValue)
+          }
+          errorMessage={formik2.errors.Number2}
+        />
+        {/* <Picker
           selectedValue={selectedNumber2}
           onValueChange={(itemValue, itemIndex) =>
             saveNumber2property(itemValue)
@@ -78,7 +80,7 @@ export function Pickermode(props) {
               value={String(number)}
             />
           ))}
-        </Picker>
+        </Picker> */}
       </View>
     </>
   );

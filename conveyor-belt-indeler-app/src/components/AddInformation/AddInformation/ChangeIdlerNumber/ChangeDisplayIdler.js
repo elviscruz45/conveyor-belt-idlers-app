@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View } from "react-native";
 import { Input, Button } from "@rneui/themed";
 import { useFormik } from "formik";
@@ -10,41 +10,52 @@ import { Pickermode } from "./Pickermode";
 
 export function ChangeDisplayIdler(props) {
   const { onClose, handlerenderComponentIdler, formik } = props;
-  const formik2 = useFormik({
-    initialValues: initialValues(),
-    // validationSchema: validationSchema(),
-    validateOnChange: false,
-    onSubmit: (formValue) => {
-      onClose();
-      const numeroPolin = `${formValue.Number1}${formValue.Number2}`;
-      handlerenderComponentIdler(numeroPolin);
-      formik.setFieldValue("numeroPolin", numeroPolin);
+  const [text, setText] = useState("");
+  // const formik2 = useFormik({
+  //   initialValues: initialValues(),
+  //   // validationSchema: validationSchema(),
+  //   validateOnChange: false,
+  //   onSubmit: (formValue) => {
+  //     onClose();
+  //     const numeroPolin = `${formValue.Number1}${formValue.Number2}`;
+  //     handlerenderComponentIdler(numeroPolin);
+  //     formik.setFieldValue("numeroPolin", numeroPolin);
 
-      // try {
-      //   const { displayName } = formValue;
-      //   const currentUser = getAuth().currentUser;
-      //   await updateProfile(currentUser, { displayName });
-      //   onReload();
-      //   onClose();
-      // } catch (error) {
-      //   Toast.show({
-      //     type: "error",
-      //     position: "bottom",
-      //     text1: "Error al cambiar el nombre y apellidos",
-      //   });
-      // }
-    },
-  });
+  //     // try {
+  //     //   const { displayName } = formValue;
+  //     //   const currentUser = getAuth().currentUser;
+  //     //   await updateProfile(currentUser, { displayName });
+  //     //   onReload();
+  //     //   onClose();
+  //     // } catch (error) {
+  //     //   Toast.show({
+  //     //     type: "error",
+  //     //     position: "bottom",
+  //     //     text1: "Error al cambiar el nombre y apellidos",
+  //     //   });
+  //     // }
+  //   },
+  // });
 
   return (
     <View>
       <View style={styles.content}>
-        <Pickermode formik2={formik2} />
+        <Input
+          placeholder="Numero de Polin"
+          // editable={true}
+          keyboardType="numeric"
+          onChangeText={(item) => setText(item)}
+          errorMessage={formik.errors.numeroPolin}
+        />
         <Button
           title="Aceptar"
           containerStyle={styles.btnContainer}
           buttonStyle={styles.btn}
-          onPress={formik2.handleSubmit}
+          onPress={() => {
+            handlerenderComponentIdler(text.toString());
+            onClose();
+            formik.setFieldValue("numeroPolin", text.toString());
+          }}
           // loading={formik.isSubmitting}
         />
       </View>

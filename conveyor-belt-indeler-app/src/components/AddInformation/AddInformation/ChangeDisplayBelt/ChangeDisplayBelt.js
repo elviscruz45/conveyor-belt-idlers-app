@@ -7,6 +7,7 @@ import { useFormik } from "formik";
 import { initialValues, validationSchema } from "./ChangeDisplayBelt.data";
 import { styles } from "./ChangeDisplayBelt.styles";
 import { Pickermode } from "./Pickermode";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 export function ChangeDisplayBelt(props) {
   const { onClose, handlerenderComponent, formik } = props;
@@ -15,9 +16,7 @@ export function ChangeDisplayBelt(props) {
     // validationSchema: validationSchema(),
     validateOnChange: false,
     onSubmit: (formValue) => {
-      const numeroFaja = `${formValue.Plant}${"-CV-"}${formValue.Number1}${
-        formValue.Number2
-      }`;
+      const numeroFaja = `${formValue.Plant}${formValue.Number1}${formValue.Number2}`;
       formik.setFieldValue("numeroFaja", numeroFaja);
 
       onClose();
@@ -39,17 +38,19 @@ export function ChangeDisplayBelt(props) {
   });
 
   return (
-    <View>
-      <View style={styles.content}>
-        <Pickermode formik2={formik2} />
-        <Button
-          title="Aceptar"
-          containerStyle={styles.btnContainer}
-          buttonStyle={styles.btn}
-          onPress={formik2.handleSubmit}
-          // loading={formik.isSubmitting}
-        />
+    <KeyboardAwareScrollView>
+      <View>
+        <View style={styles.content}>
+          <Pickermode formik2={formik2} formik={formik} />
+          <Button
+            title="Aceptar"
+            containerStyle={styles.btnContainer}
+            buttonStyle={styles.btn}
+            onPress={formik2.handleSubmit}
+            // loading={formik.isSubmitting}
+          />
+        </View>
       </View>
-    </View>
+    </KeyboardAwareScrollView>
   );
 }

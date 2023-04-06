@@ -225,7 +225,6 @@ export function InfoForm(props) {
           placeholder="Prioridad"
           defaultValue={defaultValuePriority}
           editable={false}
-          // keyboardType="numeric"
           onChangeText={() =>
             formik.setFieldValue("prioridad", defaultValuePriority)
           }

@@ -3,7 +3,7 @@ import * as Yup from "yup";
 export function initialValues() {
   return {
     Plant: "C1",
-    Number1: "0",
+    Number1: "-CV-",
     Number2: "13",
   };
 }
