@@ -5,12 +5,17 @@ import { screen } from "../utils";
 import { AddInformationScreen } from "../screens";
 import { InformationScreen } from "../screens";
 import { AddReviewInformationScreen } from "../screens";
-
+import { styles } from "./Navigation.styles";
 export function AddInformationStack() {
   const Stack = createNativeStackNavigator();
 
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: true,
+        contentStyle: styles.globalStylesStack, // Set the background color for all screens
+      }}
+    >
       <Stack.Screen
         name={screen.addinformation.Information}
         component={InformationScreen}

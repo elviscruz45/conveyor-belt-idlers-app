@@ -7,7 +7,7 @@ import { HomeStack } from "./HomeStack";
 import { AddInformationStack } from "./AddInformationStack";
 import { SearchStack } from "./SearchStack";
 import { AccountStack } from "./AccountStack";
-
+import { styles } from "./Navigation.styles";
 export function AppNavigation() {
   const Tab = createBottomTabNavigator();
 
@@ -18,6 +18,7 @@ export function AppNavigation() {
         tabBarActiveTintColor: "#FA4A0C",
         tabBarInactiveTintColor: "black",
         tabBarIcon: ({ color, size }) => screenOptions(route, color, size),
+        tabBarStyle: styles.globalStylesTab,
       })}
     >
       <Tab.Screen

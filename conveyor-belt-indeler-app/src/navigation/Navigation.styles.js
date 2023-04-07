@@ -1,7 +1,12 @@
-import { StyleSheet, Dimensions } from "react-native";
-const windowWidth = Dimensions.get("window").width;
+import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
+  globalStylesTab: {
+    backgroundColor: "##F7F8FC",
+  },
+  globalStylesStack: {
+    backgroundColor: "#F7F8FC",
+  },
   content: {
     flex: 1,
   },
@@ -36,29 +41,5 @@ export const styles = StyleSheet.create({
     color: "#828282",
     paddingRight: 100,
     marginTop: 3,
-  },
-  radioCard: {
-    margin: 3,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "flex-start",
-    padding: 5,
-    paddingLeft: 8,
-    paddingRight: 8,
-    gap: 2,
-    width: windowWidth - 8,
-    // height: 120,
-    backgroundColor: "#FFFFFF",
-    shadowColor: "#384967",
-    shadowOffset: {
-      width: 4,
-      height: 4,
-    },
-    shadowOpacity: 0.05,
-    borderRadius: 16,
-    flex: 0,
-    order: 2,
-    alignSelf: "stretch",
-    flexGrow: 0,
   },
 });

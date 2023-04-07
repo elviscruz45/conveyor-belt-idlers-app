@@ -99,10 +99,23 @@ export function InformationScreen(props) {
           data={dataList}
           renderItem={({ item, index }) => {
             return (
-              <View>
-                <Text>{index + 1}</Text>
+              <View style={styles.radioCard}>
                 <View style={styles.btnEditDelete}>
-                  <Text>Fecha: {item.createdAt}</Text>
+                  <Text
+                    style={{
+                      // backgroundColor: "#FA4A0C", // Set the background color of the circle to orange
+                      borderRadius: 15, // Set the border radius to half of the height to make it a circle
+                      height: 20, // Set the height and width of the circle to your desired size
+                      width: 20,
+                      justifyContent: "auto",
+                      alignItems: "center",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {index + 1}.
+                  </Text>
+                  <Text style={{ fontWeight: "bold" }}>Fecha: </Text>
+                  <Text>{item.createdAt}</Text>
                   <Icon
                     // reverse
                     type="material-community"
@@ -120,17 +133,42 @@ export function InformationScreen(props) {
                     onPress={() => goToDelete(item)}
                   />
                 </View>
-                <Text>Inspeccionado Por: Robert Velarde Tejada</Text>
-                <Text>NumeroFaja: {item.numeroFaja}</Text>
-                <Text>NumeroPolin: {item.numeroPolin}</Text>
-                <Text>Posicion: {item.posicion}</Text>
-                <Text>Zona: {item.zona}</Text>
-                <Text>Condicion: {item.condicion}</Text>
-                <Text>Prioridad: {item.prioridad}</Text>
-                <Text>Observacion: {item.observacion}</Text>
-                <Text>
-                  ----------------------------------------------------
-                </Text>
+                <View>
+                  <View style={{ flexDirection: "row" }}>
+                    <Text style={{ fontWeight: "bold" }}>
+                      Inspeccionado Por:
+                    </Text>
+                    <Text>Robert Velarde Tejada</Text>
+                  </View>
+                  <View style={{ flexDirection: "row" }}>
+                    <Text style={{ fontWeight: "bold" }}>NumeroFaja: </Text>
+                    <Text>{item.numeroFaja} </Text>
+                    <Text style={{ fontWeight: "bold" }}>Polin:</Text>
+                    <Text>{item.numeroPolin}</Text>
+                    <View style={{ flexDirection: "row" }}>
+                      <Text style={{ fontWeight: "bold" }}> Posicion:</Text>
+                      <Text> {item.posicion}</Text>
+                    </View>
+                  </View>
+                  <View style={{ flexDirection: "row" }}>
+                    <View style={{ flexDirection: "row" }}>
+                      <Text style={{ fontWeight: "bold" }}>Zona: </Text>
+                      <Text>{item.zona}</Text>
+                    </View>
+                    <View style={{ flexDirection: "row" }}>
+                      <Text style={{ fontWeight: "bold" }}> Condicion: </Text>
+                      <Text>{item.condicion}</Text>
+                    </View>
+                  </View>
+                  <View style={{ flexDirection: "row" }}>
+                    <Text style={{ fontWeight: "bold" }}>Prioridad: </Text>
+                    <Text>{item.prioridad}</Text>
+                  </View>
+                  <View style={{ flexDirection: "row" }}>
+                    <Text style={{ fontWeight: "bold" }}>Observacion: </Text>
+                    <Text style={{ flex: 1 }}>{item.observacion}</Text>
+                  </View>
+                </View>
               </View>
             );
           }}
