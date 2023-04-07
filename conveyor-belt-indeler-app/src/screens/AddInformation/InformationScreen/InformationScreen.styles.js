@@ -39,6 +39,7 @@ export const styles = StyleSheet.create({
   },
   radioCard: {
     margin: 3,
+    fontFamily: "DM Sans",
     display: "flex",
     flexDirection: "column",
     alignItems: "flex-start",
@@ -47,7 +48,6 @@ export const styles = StyleSheet.create({
     paddingRight: 8,
     gap: 2,
     width: windowWidth - 8,
-    // height: 120,
     backgroundColor: "#FFFFFF",
     shadowColor: "#384967",
     shadowOffset: {

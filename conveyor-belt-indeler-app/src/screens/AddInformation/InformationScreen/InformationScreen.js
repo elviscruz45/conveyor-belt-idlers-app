@@ -100,50 +100,84 @@ export function InformationScreen(props) {
           renderItem={({ item, index }) => {
             return (
               <View style={styles.radioCard}>
-                <View style={styles.btnEditDelete}>
-                  <Text
-                    style={{
-                      // backgroundColor: "#FA4A0C", // Set the background color of the circle to orange
-                      borderRadius: 15, // Set the border radius to half of the height to make it a circle
-                      height: 20, // Set the height and width of the circle to your desired size
-                      width: 20,
-                      justifyContent: "auto",
-                      alignItems: "center",
-                      fontWeight: "bold",
-                    }}
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <View style={{ flexDirection: "row", alignItems: "center" }}>
+                    <Text
+                      style={{
+                        // backgroundColor: "#FA4A0C", // Set the background color of the circle to orange
+                        borderRadius: 15, // Set the border radius to half of the height to make it a circle
+                        height: 20, // Set the height and width of the circle to your desired size
+                        width: 20,
+                        justifyContent: "auto",
+                        alignItems: "center",
+                        fontWeight: "bold",
+                        fontSize: 12,
+                        // color: "#384967",
+                        opacity: 0.5,
+                      }}
+                    >
+                      {index + 1}.
+                    </Text>
+                    <Text
+                      style={{
+                        fontWeight: "bold",
+                        fontFamily: "DM Sans",
+                        fontSize: 12,
+                        // color: "#384967",
+                        justifyContent: "auto",
+                        alignItems: "center",
+                        opacity: 0.5,
+                      }}
+                    >
+                      Fecha:
+                    </Text>
+                    <Text
+                      style={{
+                        fontWeight: "bold",
+                        fontFamily: "DM Sans",
+                        fontSize: 12,
+                        // color: "#384967",
+                        opacity: 0.5,
+                      }}
+                    >
+                      {item.createdAt}
+                      {"                                       "}
+                    </Text>
+                  </View>
+                  <View
+                    style={{ flexDirection: "row", justifyContent: "flex-end" }}
                   >
-                    {index + 1}.
-                  </Text>
-                  <Text style={{ fontWeight: "bold" }}>Fecha: </Text>
-                  <Text>{item.createdAt}</Text>
-                  <Icon
-                    // reverse
-                    type="material-community"
-                    name="pencil-outline"
-                    // color="#FA4A0C"
-                    // containerStyle={styles.btnContainer1}
-                    onPress={() => goToEdit(item, index)}
-                  />
-                  <Icon
-                    // reverse
-                    type="material-community"
-                    name="trash-can-outline"
-                    // color="#FA4A0C"
-                    // containerStyle={styles.btnContainer1}
-                    onPress={() => goToDelete(item)}
-                  />
+                    <Icon
+                      // reverse
+                      type="material-community"
+                      name="pencil-circle-outline"
+                      color="#384967"
+                      size={18}
+                      // containerStyle={styles.btnContainer1}
+                      onPress={() => goToEdit(item, index)}
+                    />
+                    <Text>{"  "} </Text>
+                    <Icon
+                      // reverse
+                      type="material-community"
+                      name="close-circle-outline"
+                      color="#384967"
+                      size={18}
+                      // containerStyle={styles.btnContainer1}
+                      onPress={() => goToDelete(item)}
+                    />
+                  </View>
                 </View>
                 <View>
                   <View style={{ flexDirection: "row" }}>
-                    <Text style={{ fontWeight: "bold" }}>
-                      Inspeccionado Por:
-                    </Text>
-                    <Text>Robert Velarde Tejada</Text>
-                  </View>
-                  <View style={{ flexDirection: "row" }}>
                     <Text style={{ fontWeight: "bold" }}>NumeroFaja: </Text>
                     <Text>{item.numeroFaja} </Text>
-                    <Text style={{ fontWeight: "bold" }}>Polin:</Text>
+                    <Text style={{ fontWeight: "bold" }}> Polin:</Text>
                     <Text>{item.numeroPolin}</Text>
                     <View style={{ flexDirection: "row" }}>
                       <Text style={{ fontWeight: "bold" }}> Posicion:</Text>
@@ -154,6 +188,7 @@ export function InformationScreen(props) {
                     <View style={{ flexDirection: "row" }}>
                       <Text style={{ fontWeight: "bold" }}>Zona: </Text>
                       <Text>{item.zona}</Text>
+                      <Text>{"           "} </Text>
                     </View>
                     <View style={{ flexDirection: "row" }}>
                       <Text style={{ fontWeight: "bold" }}> Condicion: </Text>
@@ -162,11 +197,55 @@ export function InformationScreen(props) {
                   </View>
                   <View style={{ flexDirection: "row" }}>
                     <Text style={{ fontWeight: "bold" }}>Prioridad: </Text>
-                    <Text>{item.prioridad}</Text>
+                    <Text>
+                      {item.prioridad}
+                      {"    "}
+                    </Text>
+                    <Icon
+                      // reverse
+                      type="material-community"
+                      name="circle"
+                      color={
+                        item.prioridad === "1_Critico"
+                          ? "red"
+                          : item.prioridad === "3_Normal"
+                          ? "green"
+                          : "yellow"
+                      }
+                      size={18}
+                      onPress={() => goToDelete(item)}
+                    />
                   </View>
                   <View style={{ flexDirection: "row" }}>
                     <Text style={{ fontWeight: "bold" }}>Observacion: </Text>
-                    <Text style={{ flex: 1 }}>{item.observacion}</Text>
+                    <Text style={{ flex: 1, textAlign: "justify" }}>
+                      {item.observacion}
+                    </Text>
+                  </View>
+                  <View
+                    style={{ flexDirection: "row", justifyContent: "flex-end" }}
+                  >
+                    <Text
+                      style={{
+                        fontWeight: "bold",
+                        fontFamily: "DM Sans",
+                        fontSize: 12,
+                        fontStyle: "italic",
+                        opacity: 0.5,
+                      }}
+                    >
+                      Inspeccionado Por:
+                    </Text>
+                    <Text
+                      style={{
+                        fontFamily: "DM Sans",
+                        fontSize: 12,
+                        fontStyle: "italic",
+                        opacity: 0.5,
+                      }}
+                    >
+                      Robert Velarde Tejada
+                    </Text>
                   </View>
                 </View>
               </View>
