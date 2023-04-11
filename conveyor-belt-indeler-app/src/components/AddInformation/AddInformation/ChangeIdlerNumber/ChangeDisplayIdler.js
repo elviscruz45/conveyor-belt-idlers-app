@@ -44,7 +44,7 @@ export function ChangeDisplayIdler(props) {
           placeholder="Numero de Polin"
           // editable={true}
           keyboardType="numeric"
-          onChangeText={(item) => setText(item)}
+          onChangeText={(item) => setText(item.replace(/^0+/, ""))}
           errorMessage={formik.errors.numeroPolin}
         />
         <Button

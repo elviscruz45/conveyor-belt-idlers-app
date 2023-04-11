@@ -8,6 +8,7 @@ import { AddInformationStack } from "./AddInformationStack";
 import { SearchStack } from "./SearchStack";
 import { AccountStack } from "./AccountStack";
 import { styles } from "./Navigation.styles";
+
 export function AppNavigation() {
   const Tab = createBottomTabNavigator();
 
@@ -31,6 +32,7 @@ export function AppNavigation() {
         component={AddInformationStack}
         options={{ title: "Insertar" }}
       />
+
       <Tab.Screen
         name={screen.search.tab}
         component={SearchStack}

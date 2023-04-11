@@ -6,6 +6,7 @@ import { AddInformationScreen } from "../screens";
 import { InformationScreen } from "../screens";
 import { AddReviewInformationScreen } from "../screens";
 import { styles } from "./Navigation.styles";
+
 export function AddInformationStack() {
   const Stack = createNativeStackNavigator();
 

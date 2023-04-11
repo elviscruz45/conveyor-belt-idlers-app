@@ -1,9 +1,9 @@
 const homestackStack = {
   tab: "HomeTab",
-  restaurants: "Restaurants",
-  addRestaurant: "AddRestaurant",
-  restaurant: "Restaurant",
-  addReviewRestaurant: "AddReviewRestaurant",
+  home: "Home",
+  graphic: "Graphic",
+  data: "Data",
+  changes: "Changes",
 };
 
 const addinformationtStack = {

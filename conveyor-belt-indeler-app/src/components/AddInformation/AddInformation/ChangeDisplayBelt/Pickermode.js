@@ -63,7 +63,7 @@ export function Pickermode(props) {
           // editable={true}
           keyboardType="numeric"
           onChangeText={(itemValue, itemIndex) =>
-            saveNumber2property(itemValue)
+            saveNumber2property(itemValue.replace(/^0+/, ""))
           }
           errorMessage={formik2.errors.Number2}
         />

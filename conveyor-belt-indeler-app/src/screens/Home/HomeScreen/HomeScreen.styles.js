@@ -1,5 +1,6 @@
 import { StyleSheet, Dimensions } from "react-native";
 const windowWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get("window").height;
 
 export const styles = StyleSheet.create({
   content: {
@@ -25,9 +26,10 @@ export const styles = StyleSheet.create({
     margin: 10,
   },
   image: {
-    width: 80,
-    height: 80,
-    marginRight: 15,
+    width: windowWidth,
+    height: 200,
+    // marginRight: 15,
+    // marginTop: 0,
   },
   name: {
     fontWeight: "bold",

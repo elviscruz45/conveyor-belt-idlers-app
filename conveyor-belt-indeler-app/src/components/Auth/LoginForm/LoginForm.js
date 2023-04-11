@@ -8,10 +8,10 @@ import { useNavigation } from "@react-navigation/native";
 import { screen } from "../../../utils";
 import { initialValues, validationSchema } from "./LoginForm.data";
 import { styles } from "./LoginForm.styles";
-
-export function LoginForm() {
+export function LoginForm(props) {
   const [showPassword, setShowPassword] = useState(false);
   const navigation = useNavigation();
+  const { login } = props;
 
   const onShowHidePassword = () => setShowPassword((prevState) => !prevState);
 
@@ -22,13 +22,14 @@ export function LoginForm() {
     onSubmit: async (formValue) => {
       try {
         const auth = getAuth();
-        await signInWithEmailAndPassword(
+        const userCredential = await signInWithEmailAndPassword(
           auth,
           formValue.email,
           formValue.password
         );
-        navigation.navigate(screen.account.account);
+        login(userCredential._tokenResponse.email);
       } catch (error) {
+        alert("Contraseña incorrecta");
         Toast.show({
           type: "error",
           position: "bottom",
@@ -42,6 +43,7 @@ export function LoginForm() {
     <View style={styles.content}>
       <Input
         placeholder="Correo electronico"
+        autoCapitalize="none"
         containerStyle={styles.input}
         rightIcon={
           <Icon type="material-community" name="at" iconStyle={styles.icon} />

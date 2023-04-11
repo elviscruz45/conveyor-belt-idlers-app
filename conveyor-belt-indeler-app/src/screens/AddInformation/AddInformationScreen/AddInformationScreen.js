@@ -1,5 +1,5 @@
 import { View, Text } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Button } from "@rneui/base";
 import { InfoForm } from "../../../components/AddInformation/AddInformation/InforForm/InfoForm";
 import { styles } from "./AddInformationScreen.styles";
@@ -8,11 +8,14 @@ import { initialValues, validationSchema } from "./AddInformationScreen.data";
 import { useNavigation } from "@react-navigation/native";
 import { screen } from "../../../utils";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+// import { MyContext } from "../../../../App";
 
 export function AddInformationScreen(props) {
   const { route } = props;
   const [formData, setFormData] = useState(null);
   const navigation = useNavigation();
+  const userEmail = useContext(MyContext);
+
   useEffect(() => {}, [formData]);
   const formik = useFormik({
     initialValues: initialValues(),
@@ -44,6 +47,9 @@ export function AddInformationScreen(props) {
         const formattedDate = `${day} ${month} ${year}  ${hour}:${minute} Hrs`;
 
         newData.createdAt = formattedDate;
+        newData.ID = `${formValue.numeroFaja}/${formValue.numeroPolin}-${formValue.posicion}`;
+        newData.date = date.toString();
+        newData.userEmail = userEmail;
         setFormData(newData);
         navigation.navigate(screen.addinformation.Information, {
           formData: newData,

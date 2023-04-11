@@ -19,8 +19,6 @@ export function InformationScreen(props) {
     lastListData?.numeroFaja +
       lastListData?.numeroPolin +
       lastListData?.posicion || "";
-  console.log("last Item", data);
-  console.log("dataList", dataList);
 
   useEffect(() => {
     if (route.params) {
@@ -83,8 +81,9 @@ export function InformationScreen(props) {
     try {
       const newData = { dataList: dataList };
       newData.id = uuid();
-      newData.createdAt = new Date();
-      await setDoc(doc(db, "Polines-Data", newData.id), newData);
+      newData.createdData = new Date();
+      console.log(newData);
+      // await setDoc(doc(db, "Polines-Data", newData.id), newData);
       alert("Se han enviado los datos correctamente a la nube");
       // navigation.goBack();
     } catch (error) {
@@ -113,7 +112,6 @@ export function InformationScreen(props) {
                         borderRadius: 15, // Set the border radius to half of the height to make it a circle
                         height: 20, // Set the height and width of the circle to your desired size
                         width: 20,
-                        justifyContent: "auto",
                         alignItems: "center",
                         fontWeight: "bold",
                         fontSize: 12,
@@ -126,10 +124,9 @@ export function InformationScreen(props) {
                     <Text
                       style={{
                         fontWeight: "bold",
-                        fontFamily: "DM Sans",
+                        // fontFamily: "DM Sans",
                         fontSize: 12,
                         // color: "#384967",
-                        justifyContent: "auto",
                         alignItems: "center",
                         opacity: 0.5,
                       }}
@@ -139,7 +136,7 @@ export function InformationScreen(props) {
                     <Text
                       style={{
                         fontWeight: "bold",
-                        fontFamily: "DM Sans",
+                        // fontFamily: "DM Sans",
                         fontSize: 12,
                         // color: "#384967",
                         opacity: 0.5,
@@ -228,7 +225,7 @@ export function InformationScreen(props) {
                     <Text
                       style={{
                         fontWeight: "bold",
-                        fontFamily: "DM Sans",
+                        // fontFamily: "DM Sans",
                         fontSize: 12,
                         fontStyle: "italic",
                         opacity: 0.5,
@@ -238,13 +235,13 @@ export function InformationScreen(props) {
                     </Text>
                     <Text
                       style={{
-                        fontFamily: "DM Sans",
+                        // fontFamily: "DM Sans",
                         fontSize: 12,
                         fontStyle: "italic",
                         opacity: 0.5,
                       }}
                     >
-                      Robert Velarde Tejada
+                      {item.userEmail}
                     </Text>
                   </View>
                 </View>
