@@ -23,6 +23,11 @@ export function HomeStack() {
       <Stack.Screen
         name={screen.homestack.home}
         component={HomeScreen}
+        options={{ title: "Reportes" }}
+      />
+      <Stack.Screen
+        name={screen.homestack.data}
+        component={DataScreen}
         options={{ title: "Conveyor Belt" }}
       />
       <Stack.Screen
@@ -30,11 +35,7 @@ export function HomeStack() {
         component={GraphicScreen}
         options={{ title: "Conveyor Belt" }}
       />
-      <Stack.Screen
-        name={screen.homestack.data}
-        component={DataScreen}
-        options={{ title: "Conveyor Belt" }}
-      />
+
       <Stack.Screen
         name={screen.homestack.changes}
         component={ChangesScreen}

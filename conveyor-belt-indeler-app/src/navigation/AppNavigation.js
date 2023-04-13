@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, ImageBackground } from "react-native";
 import React from "react";
 import { Icon } from "@rneui/themed";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -8,6 +8,8 @@ import { AddInformationStack } from "./AddInformationStack";
 import { SearchStack } from "./SearchStack";
 import { AccountStack } from "./AccountStack";
 import { styles } from "./Navigation.styles";
+
+const backgroundImage = require("../../assets/cerro3.jpeg");
 
 export function AppNavigation() {
   const Tab = createBottomTabNavigator();

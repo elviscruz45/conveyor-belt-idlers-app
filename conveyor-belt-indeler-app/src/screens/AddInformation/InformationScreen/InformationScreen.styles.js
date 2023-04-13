@@ -61,4 +61,11 @@ export const styles = StyleSheet.create({
     alignSelf: "stretch",
     flexGrow: 0,
   },
+  backgroundImage: {
+    flex: 1,
+    // resizeMode: "cover",
+    // justifyContent: "center",
+    // alignItems: "center",
+    // opacity: 0.4,
+  },
 });

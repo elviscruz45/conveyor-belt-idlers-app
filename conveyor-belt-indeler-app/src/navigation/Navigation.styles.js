@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+const backgroundImage = require("../../assets/cerro3.jpeg"); // import the background image
 
 export const styles = StyleSheet.create({
   globalStylesTab: {
@@ -6,6 +7,10 @@ export const styles = StyleSheet.create({
   },
   globalStylesStack: {
     backgroundColor: "#F7F8FC",
+    // flex: 1,
+    // backgroundColor: "transparent",
+    // backgroundImage: `url(${backgroundImage})`,
+    // resizeMode: "cover",
   },
   content: {
     flex: 1,
@@ -41,5 +46,9 @@ export const styles = StyleSheet.create({
     color: "#828282",
     paddingRight: 100,
     marginTop: 3,
+  },
+  backgroundImage: {
+    flex: 1, // Make the background image take up the entire screen
+    resizeMode: "cover", // Cover the entire screen with the image
   },
 });

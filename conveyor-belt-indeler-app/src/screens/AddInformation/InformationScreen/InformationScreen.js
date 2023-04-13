@@ -1,5 +1,12 @@
-import { View, Text, FlatList, TouchableOpacity, Alert } from "react-native";
-import React, { useState, useEffect } from "react";
+import {
+  View,
+  Text,
+  FlatList,
+  TouchableOpacity,
+  Aler,
+  ImageBackground,
+} from "react-native";
+import React, { useState, useEffect, useContext } from "react";
 import { Icon } from "@rneui/themed";
 import { styles } from "./InformationScreen.styles";
 import { screen } from "../../../utils";
@@ -9,7 +16,11 @@ import { doc, setDoc } from "firebase/firestore";
 import { v4 as uuid } from "uuid";
 import { db } from "../../../utils";
 
+// const backgroundImage = require("../../../../assets/cerro7.jpeg");
+const backgroundImage = require("../../../../assets/aqp1.jpeg");
+
 export function InformationScreen(props) {
+  console.log("holaBROOO");
   const [dataList, setDataList] = useState([]);
   const { navigation, route } = props;
   const [data, setData] = useState();
@@ -81,11 +92,15 @@ export function InformationScreen(props) {
     try {
       const newData = { dataList: dataList };
       newData.id = uuid();
-      newData.createdData = new Date();
-      console.log(newData);
-      // await setDoc(doc(db, "Polines-Data", newData.id), newData);
+      newData.createdData = new Date().toISOString();
+      await setDoc(doc(db, "Polines-Data", newData.id), newData);
       alert("Se han enviado los datos correctamente a la nube");
-      // navigation.goBack();
+      navigation.navigate(screen.homestack.tab, {
+        screen: screen.homestack.home,
+        params: { data: newData },
+      });
+
+      setDataList([]);
     } catch (error) {
       alert(error);
     }
@@ -93,181 +108,191 @@ export function InformationScreen(props) {
 
   return (
     <>
-      {dataList && (
-        <FlatList
-          data={dataList}
-          renderItem={({ item, index }) => {
-            return (
-              <View style={styles.radioCard}>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <View style={{ flexDirection: "row", alignItems: "center" }}>
-                    <Text
-                      style={{
-                        // backgroundColor: "#FA4A0C", // Set the background color of the circle to orange
-                        borderRadius: 15, // Set the border radius to half of the height to make it a circle
-                        height: 20, // Set the height and width of the circle to your desired size
-                        width: 20,
-                        alignItems: "center",
-                        fontWeight: "bold",
-                        fontSize: 12,
-                        // color: "#384967",
-                        opacity: 0.5,
-                      }}
-                    >
-                      {index + 1}.
-                    </Text>
-                    <Text
-                      style={{
-                        fontWeight: "bold",
-                        // fontFamily: "DM Sans",
-                        fontSize: 12,
-                        // color: "#384967",
-                        alignItems: "center",
-                        opacity: 0.5,
-                      }}
-                    >
-                      Fecha:
-                    </Text>
-                    <Text
-                      style={{
-                        fontWeight: "bold",
-                        // fontFamily: "DM Sans",
-                        fontSize: 12,
-                        // color: "#384967",
-                        opacity: 0.5,
-                      }}
-                    >
-                      {item.createdAt}
-                      {"                                       "}
-                    </Text>
-                  </View>
+      <ImageBackground source={backgroundImage} style={styles.backgroundImage}>
+        {dataList && (
+          <FlatList
+            data={dataList}
+            renderItem={({ item, index }) => {
+              return (
+                <View style={styles.radioCard}>
                   <View
-                    style={{ flexDirection: "row", justifyContent: "flex-end" }}
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                    }}
                   >
-                    <Icon
-                      // reverse
-                      type="material-community"
-                      name="pencil-circle-outline"
-                      color="#384967"
-                      size={18}
-                      // containerStyle={styles.btnContainer1}
-                      onPress={() => goToEdit(item, index)}
-                    />
-                    <Text>{"  "} </Text>
-                    <Icon
-                      // reverse
-                      type="material-community"
-                      name="close-circle-outline"
-                      color="#384967"
-                      size={18}
-                      // containerStyle={styles.btnContainer1}
-                      onPress={() => goToDelete(item)}
-                    />
+                    <View
+                      style={{ flexDirection: "row", alignItems: "center" }}
+                    >
+                      <Text
+                        style={{
+                          // backgroundColor: "#FA4A0C", // Set the background color of the circle to orange
+                          borderRadius: 15, // Set the border radius to half of the height to make it a circle
+                          height: 20, // Set the height and width of the circle to your desired size
+                          width: 20,
+                          alignItems: "center",
+                          fontWeight: "bold",
+                          fontSize: 12,
+                          // color: "#384967",
+                          opacity: 0.5,
+                        }}
+                      >
+                        {index + 1}.
+                      </Text>
+                      <Text
+                        style={{
+                          fontWeight: "bold",
+                          // fontFamily: "DM Sans",
+                          fontSize: 12,
+                          // color: "#384967",
+                          alignItems: "center",
+                          opacity: 0.5,
+                        }}
+                      >
+                        Fecha:
+                      </Text>
+                      <Text
+                        style={{
+                          fontWeight: "bold",
+                          // fontFamily: "DM Sans",
+                          fontSize: 12,
+                          // color: "#384967",
+                          opacity: 0.5,
+                        }}
+                      >
+                        {item.createdAt}
+                        {"                                       "}
+                      </Text>
+                    </View>
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        justifyContent: "flex-end",
+                      }}
+                    >
+                      <Icon
+                        // reverse
+                        type="material-community"
+                        name="pencil-circle-outline"
+                        color="#384967"
+                        size={18}
+                        // containerStyle={styles.btnContainer1}
+                        onPress={() => goToEdit(item, index)}
+                      />
+                      <Text>{"  "} </Text>
+                      <Icon
+                        // reverse
+                        type="material-community"
+                        name="close-circle-outline"
+                        color="#384967"
+                        size={18}
+                        // containerStyle={styles.btnContainer1}
+                        onPress={() => goToDelete(item)}
+                      />
+                    </View>
+                  </View>
+                  <View>
+                    <View style={{ flexDirection: "row" }}>
+                      <Text style={{ fontWeight: "bold" }}>NumeroFaja: </Text>
+                      <Text>{item.numeroFaja} </Text>
+                      <Text style={{ fontWeight: "bold" }}> Polin:</Text>
+                      <Text>{item.numeroPolin}</Text>
+                      <View style={{ flexDirection: "row" }}>
+                        <Text style={{ fontWeight: "bold" }}> Posicion:</Text>
+                        <Text> {item.posicion}</Text>
+                      </View>
+                    </View>
+                    <View style={{ flexDirection: "row" }}>
+                      <View style={{ flexDirection: "row" }}>
+                        <Text style={{ fontWeight: "bold" }}>Zona: </Text>
+                        <Text>{item.zona}</Text>
+                        <Text>{"           "} </Text>
+                      </View>
+                      <View style={{ flexDirection: "row" }}>
+                        <Text style={{ fontWeight: "bold" }}> Condicion: </Text>
+                        <Text>{item.condicion}</Text>
+                      </View>
+                    </View>
+                    <View style={{ flexDirection: "row" }}>
+                      <Text style={{ fontWeight: "bold" }}>Prioridad: </Text>
+                      <Text>
+                        {item.prioridad}
+                        {"    "}
+                      </Text>
+                      <Icon
+                        // reverse
+                        type="material-community"
+                        name="circle"
+                        color={
+                          item.prioridad === "1_Critico"
+                            ? "red"
+                            : item.prioridad === "3_Normal"
+                            ? "green"
+                            : "yellow"
+                        }
+                        size={18}
+                        onPress={() => goToDelete(item)}
+                      />
+                    </View>
+                    <View style={{ flexDirection: "row" }}>
+                      <Text style={{ fontWeight: "bold" }}>Observacion: </Text>
+                      <Text style={{ flex: 1, textAlign: "justify" }}>
+                        {item.observacion}
+                      </Text>
+                    </View>
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        justifyContent: "flex-end",
+                      }}
+                    >
+                      <Text
+                        style={{
+                          fontWeight: "bold",
+                          // fontFamily: "DM Sans",
+                          fontSize: 12,
+                          fontStyle: "italic",
+                          opacity: 0.5,
+                        }}
+                      >
+                        Inspeccionado Por:
+                      </Text>
+                      <Text
+                        style={{
+                          // fontFamily: "DM Sans",
+                          fontSize: 12,
+                          fontStyle: "italic",
+                          opacity: 0.5,
+                        }}
+                      >
+                        {item.userEmail}
+                      </Text>
+                    </View>
                   </View>
                 </View>
-                <View>
-                  <View style={{ flexDirection: "row" }}>
-                    <Text style={{ fontWeight: "bold" }}>NumeroFaja: </Text>
-                    <Text>{item.numeroFaja} </Text>
-                    <Text style={{ fontWeight: "bold" }}> Polin:</Text>
-                    <Text>{item.numeroPolin}</Text>
-                    <View style={{ flexDirection: "row" }}>
-                      <Text style={{ fontWeight: "bold" }}> Posicion:</Text>
-                      <Text> {item.posicion}</Text>
-                    </View>
-                  </View>
-                  <View style={{ flexDirection: "row" }}>
-                    <View style={{ flexDirection: "row" }}>
-                      <Text style={{ fontWeight: "bold" }}>Zona: </Text>
-                      <Text>{item.zona}</Text>
-                      <Text>{"           "} </Text>
-                    </View>
-                    <View style={{ flexDirection: "row" }}>
-                      <Text style={{ fontWeight: "bold" }}> Condicion: </Text>
-                      <Text>{item.condicion}</Text>
-                    </View>
-                  </View>
-                  <View style={{ flexDirection: "row" }}>
-                    <Text style={{ fontWeight: "bold" }}>Prioridad: </Text>
-                    <Text>
-                      {item.prioridad}
-                      {"    "}
-                    </Text>
-                    <Icon
-                      // reverse
-                      type="material-community"
-                      name="circle"
-                      color={
-                        item.prioridad === "1_Critico"
-                          ? "red"
-                          : item.prioridad === "3_Normal"
-                          ? "green"
-                          : "yellow"
-                      }
-                      size={18}
-                      onPress={() => goToDelete(item)}
-                    />
-                  </View>
-                  <View style={{ flexDirection: "row" }}>
-                    <Text style={{ fontWeight: "bold" }}>Observacion: </Text>
-                    <Text style={{ flex: 1, textAlign: "justify" }}>
-                      {item.observacion}
-                    </Text>
-                  </View>
-                  <View
-                    style={{ flexDirection: "row", justifyContent: "flex-end" }}
-                  >
-                    <Text
-                      style={{
-                        fontWeight: "bold",
-                        // fontFamily: "DM Sans",
-                        fontSize: 12,
-                        fontStyle: "italic",
-                        opacity: 0.5,
-                      }}
-                    >
-                      Inspeccionado Por:
-                    </Text>
-                    <Text
-                      style={{
-                        // fontFamily: "DM Sans",
-                        fontSize: 12,
-                        fontStyle: "italic",
-                        opacity: 0.5,
-                      }}
-                    >
-                      {item.userEmail}
-                    </Text>
-                  </View>
-                </View>
-              </View>
-            );
-          }}
-        />
-      )}
-      <View>
-        <Icon
-          reverse
-          type="material-community"
-          name="send-circle-outline"
-          color="#FA4A0C"
-          containerStyle={styles.btnContainer1}
-          onPress={() => sendToFirebase(dataList)}
-        />
-        <Icon
-          reverse
-          type="material-community"
-          name="plus"
-          color="#FA4A0C"
-          containerStyle={styles.btnContainer2}
-          onPress={goToInformation}
-        />
-      </View>
+              );
+            }}
+          />
+        )}
+        <View>
+          <Icon
+            reverse
+            type="material-community"
+            name="send-circle-outline"
+            color="#FA4A0C"
+            containerStyle={styles.btnContainer1}
+            onPress={() => sendToFirebase(dataList)}
+          />
+          <Icon
+            reverse
+            type="material-community"
+            name="plus"
+            color="#FA4A0C"
+            containerStyle={styles.btnContainer2}
+            onPress={goToInformation}
+          />
+        </View>
+      </ImageBackground>
     </>
   );
 }

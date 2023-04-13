@@ -4,7 +4,7 @@ const windowHeight = Dimensions.get("window").height;
 
 export const styles = StyleSheet.create({
   radioCard: {
-    margin: 5,
+    margin: 3,
     // fontFamily: "DM Sans",
     // display: "flex",
     // flexDirection: "column",
@@ -13,7 +13,7 @@ export const styles = StyleSheet.create({
     paddingLeft: 8,
     paddingRight: 8,
     // gap: 2,
-    width: windowWidth - 10,
+    width: windowWidth,
     backgroundColor: "#FFFFFF",
     shadowColor: "#384967",
     // shadowOffset: {
@@ -32,11 +32,12 @@ export const styles = StyleSheet.create({
     // justifyContent: "space-between", // Optional: adjust spacing between items
     alignItems: "center", // Optional: adjust vertical alignment of items
     // justifyContent: 'center',
+    justifyContent: "space-between", // Optional: adjust spacing between items
   },
   containerTypes: {
     flexDirection: "row", // Set direction to row for horizontal layout
     justifyContent: "space-between", // Optional: adjust spacing between items
-    paddingRight: windowWidth - 360,
+    paddingRight: 10,
     margin: 5,
     // alignItems: "center", // Optional: adjust vertical alignment of items
   },

@@ -8,15 +8,15 @@ import { initialValues, validationSchema } from "./AddInformationScreen.data";
 import { useNavigation } from "@react-navigation/native";
 import { screen } from "../../../utils";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-// import { MyContext } from "../../../../App";
+import { MyContext } from "../../../../App";
 
 export function AddInformationScreen(props) {
   const { route } = props;
-  const [formData, setFormData] = useState(null);
+  // const [formData, setFormData] = useState(null);
   const navigation = useNavigation();
   const userEmail = useContext(MyContext);
 
-  useEffect(() => {}, [formData]);
+  // useEffect(() => {}, [formData]);
   const formik = useFormik({
     initialValues: initialValues(),
     validationSchema: validationSchema(),
@@ -45,12 +45,12 @@ export function AddInformationScreen(props) {
         const hour = date.getHours();
         const minute = date.getMinutes();
         const formattedDate = `${day} ${month} ${year}  ${hour}:${minute} Hrs`;
+        newData.userEmail = userEmail || "ElvisCruz";
 
         newData.createdAt = formattedDate;
+        newData.createdData = new Date().toISOString();
+
         newData.ID = `${formValue.numeroFaja}/${formValue.numeroPolin}-${formValue.posicion}`;
-        newData.date = date.toString();
-        newData.userEmail = userEmail;
-        setFormData(newData);
         navigation.navigate(screen.addinformation.Information, {
           formData: newData,
           Index: route.params.EditData?.Index,
@@ -73,7 +73,7 @@ export function AddInformationScreen(props) {
           title="Agregar Dato"
           buttonStyle={styles.addInformation}
           onPress={formik.handleSubmit}
-          // loading={formik.isSubmitting}
+          loading={formik.isSubmitting}
         />
       </View>
     </KeyboardAwareScrollView>

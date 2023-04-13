@@ -21,6 +21,7 @@
     "expo-status-bar": "~1.4.4",
     "expo-updates": "~0.16.4",
     "firebase": "^9.19.1",
+    "firesql": "^2.0.2",
     "formik": "^2.2.9",
     "lodash": "^4.17.21",
     "react": "18.2.0",

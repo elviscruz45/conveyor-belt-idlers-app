@@ -18,7 +18,8 @@ export default function App() {
   return (
     <MyContext.Provider value={loginValidation}>
       <NavigationContainer>
-        <LoginNavigator loginValidation={loginValidation} login={login} />
+        {/* <LoginNavigator loginValidation={loginValidation} login={login} /> */}
+        <AppNavigation />
       </NavigationContainer>
     </MyContext.Provider>
   );

@@ -16,7 +16,7 @@ export function LoginScreen() {
   return (
     <ScrollView>
       <Image
-        // source={require("../../../../assets/img/5-tenedores-letras-icono-logo.png")}
+        source={require("../../../../assets/cerro7.jpeg")}
         style={styles.image}
       />
       <View style={styles.content}>
