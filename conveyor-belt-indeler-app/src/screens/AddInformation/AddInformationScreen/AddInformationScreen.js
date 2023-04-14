@@ -14,7 +14,7 @@ export function AddInformationScreen(props) {
   const { route } = props;
   // const [formData, setFormData] = useState(null);
   const navigation = useNavigation();
-  const userEmail = useContext(MyContext);
+  const { loginValidation } = useContext(MyContext);
 
   // useEffect(() => {}, [formData]);
   const formik = useFormik({
@@ -45,7 +45,7 @@ export function AddInformationScreen(props) {
         const hour = date.getHours();
         const minute = date.getMinutes();
         const formattedDate = `${day} ${month} ${year}  ${hour}:${minute} Hrs`;
-        newData.userEmail = userEmail || "ElvisCruz";
+        newData.userEmail = loginValidation || "ElvisCruz";
 
         newData.createdAt = formattedDate;
         newData.createdData = new Date().toISOString();

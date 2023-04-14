@@ -6,13 +6,25 @@ import { Icon } from "@rneui/themed";
 export function DataScreen(props) {
   const { route, navigation } = props;
   const Data = route.params.dataReport;
-  console.log(Data);
+  Data.sort((a, b) => new Date(b.createdData) - new Date(a.createdData));
+  const uniqueObjects = {};
+  for (const obj of Data) {
+    if (
+      !uniqueObjects[obj.ID] ||
+      new Date(obj.createdData) > new Date(uniqueObjects[obj.ID].createdData)
+    ) {
+      uniqueObjects[obj.ID] = obj;
+    }
+  }
+
+  const uniqueList = Object.values(uniqueObjects);
+  uniqueList.sort((a, b) => a.numeroPolin - b.numeroPolin);
 
   return (
     <View>
       <View style={styles.radioCard}>
         <View style={styles.containerTypes1}>
-          <Text>Nro Polin</Text>
+          <Text>Numero Polin</Text>
           <Text>Fecha Insp</Text>
 
           <Text>Prioridad</Text>
@@ -20,7 +32,7 @@ export function DataScreen(props) {
         </View>
       </View>
       <FlatList
-        data={Data}
+        data={uniqueList}
         renderItem={({ item, index }) => {
           const fecha = (item) => {
             const date = new Date(item.createdData);
@@ -62,7 +74,10 @@ export function DataScreen(props) {
           return (
             <View style={styles.radioCard}>
               <View style={styles.containerTypes1}>
-                <Text>.{item.numeroPolin}</Text>
+                <Text>
+                  .{item.numeroPolin}-{item.posicion}
+                </Text>
+
                 <Text>{fecha(item)}</Text>
                 <Icon
                   // reverse

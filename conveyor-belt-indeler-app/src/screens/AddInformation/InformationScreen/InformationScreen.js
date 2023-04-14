@@ -16,7 +16,6 @@ import { doc, setDoc } from "firebase/firestore";
 import { v4 as uuid } from "uuid";
 import { db } from "../../../utils";
 
-// const backgroundImage = require("../../../../assets/cerro7.jpeg");
 const backgroundImage = require("../../../../assets/aqp1.jpeg");
 
 export function InformationScreen(props) {
@@ -89,11 +88,17 @@ export function InformationScreen(props) {
   };
 
   const sendToFirebase = async (dataList) => {
+    if (dataList.length == 0) return;
     try {
+      console.log("sendToFirebase");
+      console.log(dataList);
+
       const newData = { dataList: dataList };
       newData.id = uuid();
       newData.createdData = new Date().toISOString();
+
       await setDoc(doc(db, "Polines-Data", newData.id), newData);
+
       alert("Se han enviado los datos correctamente a la nube");
       navigation.navigate(screen.homestack.tab, {
         screen: screen.homestack.home,

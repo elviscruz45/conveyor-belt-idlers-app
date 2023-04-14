@@ -59,9 +59,7 @@ export function HomeScreen(props) {
         post_array.flat().forEach((item) => {
           new_array.push(item);
         });
-        setFirestoreData(
-          new_array.flat().sort((a, b) => a.numeroPolin - b.numeroPolin)
-        );
+        setFirestoreData(new_array.flat());
         setgetdataFirestore(new_array.flat());
       } catch (error) {
         console.error("Error fetching docs from Firestore:", error);
