@@ -8,7 +8,7 @@ import { initialValues, validationSchema } from "./AddInformationScreen.data";
 import { useNavigation } from "@react-navigation/native";
 import { screen } from "../../../utils";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { MyContext } from "../../../../App";
+import { MyContext } from "../../../../context/ThemeContext";
 
 export function AddInformationScreen(props) {
   const { route } = props;

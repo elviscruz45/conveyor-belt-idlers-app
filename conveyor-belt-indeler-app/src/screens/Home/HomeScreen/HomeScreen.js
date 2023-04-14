@@ -1,5 +1,12 @@
-import { View, Text, Image, FlatList, ImageBackground } from "react-native";
-import React, { useEffect, useState } from "react";
+import {
+  View,
+  Text,
+  Image,
+  FlatList,
+  ImageBackground,
+  ScrollView,
+} from "react-native";
+import React, { useEffect, useState, useContext } from "react";
 import { styles } from "./HomeScreen.styles";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Icon } from "@rneui/themed";
@@ -19,6 +26,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../../../utils";
 import { belts } from "./HomeScreen.data";
+import { MyContext } from "../../../../context/ThemeContext";
 
 const backgroundImage = require("../../../../assets/aqp1.jpeg");
 
@@ -27,8 +35,15 @@ export function HomeScreen(props) {
   const [FirestoreData, setFirestoreData] = useState();
   console.log("holaHome");
   const data = props.route.params?.data?.dataList || "";
+  const { setgetdataFirestore } = useContext(MyContext);
 
-  const handlePassParams = () => navigation.setParams("mmmmmmmm");
+  // if (FirestoreData){
+  //   const sortedFirestore =
+  //   FirestoreData.sort(
+  //     (a, b) => new Date(b.createdData) - new Date(a.createdData)
+  //   ) ;
+
+  // }
 
   useEffect(() => {
     console.log("eeeeeffect");
@@ -39,19 +54,20 @@ export function HomeScreen(props) {
         querySnapshot.forEach((doc) => {
           post_array.push(doc.data().dataList);
         });
-        console.log(post_array.flat());
         // reestructuring my data
         const new_array = [];
         post_array.flat().forEach((item) => {
           new_array.push(item);
         });
-        setFirestoreData(new_array.flat());
+        setFirestoreData(
+          new_array.flat().sort((a, b) => a.numeroPolin - b.numeroPolin)
+        );
+        setgetdataFirestore(new_array.flat());
       } catch (error) {
         console.error("Error fetching docs from Firestore:", error);
       }
     };
     fetchDocs();
-    handlePassParams();
   }, [data]);
 
   return (
@@ -95,6 +111,7 @@ export function HomeScreen(props) {
                 });
               }
             };
+
             return (
               <View style={styles.radioCard}>
                 <View style={styles.containerTypes1}>
@@ -132,7 +149,6 @@ export function HomeScreen(props) {
                     </View>
                   </View>
                   <View style={styles.detalles}>
-                    {/* <Text>Detalles</Text> */}
                     <Icon
                       reverse
                       type="material-community"

@@ -27,6 +27,9 @@ export const styles = StyleSheet.create({
     // alignSelf: "stretch",
     // flexGrow: 0,
   },
+  backgroundImage: {
+    flex: 1,
+  },
   containerTypes1: {
     flexDirection: "row", // Set direction to row for horizontal layout
     // justifyContent: "space-between", // Optional: adjust spacing between items

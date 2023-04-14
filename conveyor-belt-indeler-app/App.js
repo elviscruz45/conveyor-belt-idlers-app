@@ -7,16 +7,20 @@ import { NavigationContainer } from "@react-navigation/native";
 import { AppNavigation } from "./src/navigation/AppNavigation";
 import { app } from "./src/utils";
 import { LoginNavigator } from "./src/navigation/LoginNavigator";
+import { MyContext } from "./context/ThemeContext";
 LogBox.ignoreAllLogs();
-export const MyContext = React.createContext();
 
 export default function App() {
   const [loginValidation, setLoginValidation] = useState();
+  const [getdataFirestore, setgetdataFirestore] = useState();
+
   const login = (item) => {
     setLoginValidation(item);
   };
   return (
-    <MyContext.Provider value={loginValidation}>
+    <MyContext.Provider
+      value={{ loginValidation, getdataFirestore, setgetdataFirestore }}
+    >
       <NavigationContainer>
         {/* <LoginNavigator loginValidation={loginValidation} login={login} /> */}
         <AppNavigation />
